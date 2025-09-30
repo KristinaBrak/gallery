@@ -1,29 +1,18 @@
-import { useEffect, useState } from "react";
 import "./App.css";
-import { getImages, getImageUrl } from "./services/picsum";
+import Gallery from "./Gallery/Gallery";
+import { useInfiniteScroll } from "./hooks/useInfiniteScroll";
 
-const App = () =>  {
-  const [images, setImages] = useState<string[]>([]);
+const App = () => {
+  const { images } = useInfiniteScroll();
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const image = await getImages();
-        setImages((prev) => [...prev, ...image.map((i: any) => getImageUrl(i.id))]);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchImages();
-  }, []);
+  const toGalleryItems = (image: any) => ({
+    id: image.id,
+    src: image.url,
+    label: image.author,
+    ref: image.ref,
+  });
 
-  return (
-    <div>
-      {images.map((url, idx) => (
-        <img key={idx} src={url} alt="image" />
-      ))}
-    </div>
-  );
-}
+  return <main className="app"><Gallery items={images.map(toGalleryItems)} /></main>;
+};
 
 export default App;
