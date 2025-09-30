@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
-import { getImages, getImageUrl } from "../services/picsum";
+import { getImages, getImageUrl, type PicsumImage } from "../services/picsum";
 
-export const useImages = ({page}: {page?: number} = {}) => {
+export const useImages = ({ page }: { page?: number } = {}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [images, setImages] = useState<any[]>([]);
+  const [images, setImages] = useState<PicsumImage[]>([]);
 
   useEffect(() => {
     const fetchImages = async () => {
       setLoading(true);
       try {
-        const imageList = await getImages({page});
+        const imageList = await getImages({ page });
         setImages((prev) => [
           ...prev,
-        //   TODO: i type
-          ...imageList.map((i: any)=>({...i, url: getImageUrl(i.id)})),
+          ...imageList.map((image: PicsumImage) => ({
+            ...image,
+            url: getImageUrl(image.id),
+          })),
         ]);
       } catch (e) {
         console.error(e);

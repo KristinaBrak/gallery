@@ -1,10 +1,18 @@
 import { useCallback, useRef, useState } from "react";
 import { useImages } from "./useImages";
-import { getImageUrl } from "../services/picsum";
+import { type PicsumImage } from "../services/picsum";
 
-export const useInfiniteScroll = () => {
+export type Image = PicsumImage & {
+  ref?: React.Ref<HTMLLIElement>;
+};
+
+export const useInfiniteScroll = (): {
+  images: Image[];
+  loading: boolean;
+  error: string | null;
+} => {
   const [page, setPage] = useState(1);
-  const { images, loading, error } = useImages({page});
+  const { images, loading, error } = useImages({ page });
 
   const observer = useRef<IntersectionObserver | null>(null);
   const lastImageRef = useCallback(
@@ -21,9 +29,8 @@ export const useInfiniteScroll = () => {
     [loading]
   );
 
-  const toData = (image: any, idx: number) => ({
-    id: image.id,
-    url: getImageUrl(image.id),
+  const toData = (image: PicsumImage, idx: number) => ({
+    ...image,
     ref: images.length === idx + 1 ? lastImageRef : undefined,
   });
 
