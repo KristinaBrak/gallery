@@ -7,25 +7,29 @@ export const useImages = ({ page }: { page?: number } = {}) => {
   const [images, setImages] = useState<PicsumImage[]>([]);
 
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
     const fetchImages = async () => {
       setLoading(true);
       try {
         const imageList = await getImages({ page });
+        timeout = setTimeout(() => {
+        setLoading(false);
         setImages((prev) => [
           ...prev,
           ...imageList.map((image: PicsumImage) => ({
             ...image,
             url: getImageUrl(image.id),
           })),
-        ]);
+        ]);}, 1000);
+
       } catch (e) {
         console.error(e);
-        setError(e as string);
-      } finally {
         setLoading(false);
+        setError(e as string);
       }
     };
     fetchImages();
+    return () => clearTimeout(timeout);
   }, [page]);
 
   return { images, loading, error };

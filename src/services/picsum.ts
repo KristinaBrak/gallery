@@ -14,7 +14,7 @@ export type PicsumImage = {
   width: number;
 };
 
-export const getImages = async ({limit = 2, page = 1}: Params = {}): Promise<PicsumImage[]> => {
+export const getImages = async ({limit = 3, page = 1}: Params = {}): Promise<PicsumImage[]> => {
   return fetch(`${URL}?limit=${limit}&page=${page}`)
     .then((res) => res.json())
     .catch((e) => {
