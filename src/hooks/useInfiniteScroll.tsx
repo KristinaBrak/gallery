@@ -29,10 +29,10 @@ export const useInfiniteScroll = (): {
     [loading]
   );
 
-  const toData = (image: PicsumImage, idx: number) => ({
+  const toImageWithRef = (image: PicsumImage, idx: number) => ({
     ...image,
     ref: images.length === idx + 1 ? lastImageRef : undefined,
   });
 
-  return { images: images.map(toData), loading, error };
+  return { images: images.map(toImageWithRef), loading, error };
 };

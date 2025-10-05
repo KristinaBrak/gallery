@@ -16,8 +16,8 @@ const Gallery = ({ items }: GalleryProps) => {
     <ul className="gallery">
       {items.map((item, idx) => (
         <li key={idx} tabIndex={0} ref={item.ref}>
-          <img loading="lazy" src={item.src} alt={item.label}  />
-          <label className="label">{item.label}</label>
+          <img id={item.id} loading="lazy" src={item.src} alt={item.label}  />
+          <label htmlFor={item.id} className="label">{item.label}</label>
         </li>
       ))}
     </ul>

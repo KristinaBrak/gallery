@@ -1,10 +1,5 @@
 const URL = "https://picsum.photos/v2/list";
 
-type Params = {
-    limit?: number,
-    page?: number,
-}
-
 export type PicsumImage = {
   id: string;
   author: string;
@@ -13,6 +8,11 @@ export type PicsumImage = {
   height: number;
   width: number;
 };
+
+type Params = {
+  limit?: number,
+  page?: number,
+}
 
 export const getImages = async ({limit = 3, page = 1}: Params = {}): Promise<PicsumImage[]> => {
   return fetch(`${URL}?limit=${limit}&page=${page}`)
