@@ -2,11 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .gallery-container {
   display: flex;
-  width: 95%;
+  justify-content: space-around;
 }
 
 @keyframes rotation {

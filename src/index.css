@@ -5,6 +5,8 @@ body {
 }
 
 body {
+  display: flex;
+  justify-content: center;
   background-color: rgba(249, 247, 247, 0.49);
 }
 
@@ -12,6 +14,5 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1200px;
-  min-width: 320px;
+  width: 100%;
 }
