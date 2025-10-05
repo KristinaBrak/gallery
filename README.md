@@ -1,3 +1,10 @@
+## Manual
+
+- use node version defined in the project, e.g. `fnm use`
+- run `npm run dev` to start the project 
+
+
+## Requirements
 **Instructions**
 
 Fork the following StackBlitz template and use it as your starting point:  

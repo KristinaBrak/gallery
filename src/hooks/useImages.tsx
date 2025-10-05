@@ -13,6 +13,7 @@ export const useImages = ({ page }: { page?: number } = {}) => {
       setLoading(true);
       try {
         const imageList = await getImages({ page });
+        // delay to show spinner
         timeout = setTimeout(() => {
           setLoading(false);
           setImages((prev) => [
